@@ -579,7 +579,7 @@ header button:active{
     position: relative;
     z-index: 2000; /* Ensure it’s above the overlay */
     /* transform:translate(480px,-700px) scale(1); */
-    background-image: linear-gradient(to top, rgba(122, 14, 246, 0) 0%, #9846f65f 100%), url('/82304-lavender-color-wallpaper.jpg');
+    background-image: linear-gradient(to top, rgba(122, 14, 246, 0) 0%, #9846f65f 100%), url('82304-lavender-color-wallpaper.jpg');
     
 }
 
