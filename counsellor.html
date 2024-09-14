@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat API Interface</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    #chatContainer {
+      border: 1px solid #ddd;
+      padding: 10px;
+      background-color: #f9f9f9;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    #chatHistory {
+      margin-bottom: 10px;
+      height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      padding: 10px;
+      background-color: #fff;
+    }
+    .message {
+      margin-bottom: 10px;
+    }
+    .userMessage {
+      font-weight: bold;
+      color: #007bff;
+    }
+    .botMessage {
+      font-style: italic;
+      color: #333;
+    }
+    #submitButton {
+      margin-top: 10px;
+    }
+    #queryInput {
+      width: calc(100% - 22px);
+    }
+  </style>
+</head>
+<body>
+  <h1>Chat API Interface</h1>
+  
+  <div id="chatContainer">
+    <div id="chatHistory"></div>
+    <label for="queryInput">Enter your query:</label><br>
+    <input type="text" id="queryInput" placeholder="Type your query here"><br><br>
+    <button id="submitButton">Send</button>
+  </div>
+
+  <script>
+    const apiKey = 'x316PTtGYSvv7YIGkqyzNTm3klED5vXp';
+    const externalUserId = '66e4133ef068cd8a4290888a';
+    let sessionId = null;
+
+    async function createChatSession() {
+      try {
+        const response = await fetch('https://api.on-demand.io/chat/v1/sessions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': apiKey
+          },
+          body: JSON.stringify({
+            pluginIds: [],
+            externalUserId: externalUserId
+          })
+        });
+        const data = await response.json();
+        sessionId = data.data.id; // Extract session ID
+      } catch (error) {
+        console.error('Error creating chat session:', error);
+        sessionId = null;
+      }
+    }
+
+    async function submitQuery(query) {
+      try {
+        const response = await fetch(`https://api.on-demand.io/chat/v1/sessions/${sessionId}/query`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': apiKey
+          },
+          body: JSON.stringify({
+            endpointId: 'predefined-openai-gpt4o',
+            query: query,
+            pluginIds: ['plugin-1726228878'],
+            responseMode: 'sync'
+          })
+        });
+        const data = await response.json();
+        const answer = data.data?.answer || 'No answer provided';
+        return answer;
+      } catch (error) {
+        console.error('Error submitting query:', error);
+        return 'Error submitting query. Please check the console for details.';
+      }
+    }
+
+    function appendMessage(content, type) {
+      const messageElement = document.createElement('div');
+      messageElement.classList.add('message');
+      messageElement.classList.add(type === 'user' ? 'userMessage' : 'botMessage');
+      messageElement.textContent = content;
+      document.getElementById('chatHistory').appendChild(messageElement);
+      document.getElementById('chatHistory').scrollTop = document.getElementById('chatHistory').scrollHeight; // Auto-scroll to the bottom
+    }
+
+    async function handleSubmit() {
+      const query = document.getElementById('queryInput').value.trim();
+      if (query === '') return;
+
+      if (!sessionId) {
+        await createChatSession();
+      }
+
+      if (sessionId) {
+        appendMessage(query, 'user');
+        const answer = await submitQuery(query);
+        appendMessage(answer, 'bot');
+        document.getElementById('queryInput').value = ''; // Clear input field
+      } else {
+        appendMessage('Failed to create chat session.', 'bot');
+      }
+    }
+
+    document.getElementById('submitButton').addEventListener('click', handleSubmit);
+
+    document.getElementById('queryInput').addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault(); // Prevent the default Enter key behavior (e.g., form submission)
+          handleSubmit();
+          document.getElementById('queryInput').value = ''; // Clear input field after submission
+        }
+      });
+      
+
+    // Optional: create a session on page load for a new chat
+    (async () => {
+      await createChatSession();
+    })();
+  </script>
+</body>
+</html>

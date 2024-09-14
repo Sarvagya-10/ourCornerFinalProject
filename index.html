@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="corner">OUR CORNER</div>
+        <nav>
+            <button onclick="scrollToBottom()">Relationship Coach</button>
+        </nav>
+    </header>
+
+    <!-- carousel -->
+    <div class="carousel">
+        <!-- list item -->
+        <div class="list">
+            <div class="item">
+                <img src="img1.jpeg">
+                <div class="content">
+                    <!-- <div class="author">RANDEEP</div> -->
+                    <div class="title">EmLiam</div>
+                    <div class="topic">FIRST PIC</div>
+                    <div class="des" style="font-size: 25px;">
+                        <!-- lorem 50 -->
+                        In a blooming meadow, Emma and Liam took their first picture together, laughter echoing around them. That moment marked the beginning of their beautiful love story, forever captured in time.
+                    </div>
+                    <div class="buttons">
+                        <button>EDIT</button>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="img2.jpeg">
+                <div class="content">
+                    <!-- <div class="author">RANDEEP</div> -->
+                    <div class="title">EmLiam</div>
+                    <div class="topic">FIRST DATE</div>
+                    <div class="des" style="font-size: 25px;">
+                        Nervous excitement filled the air as Emma and Liam met for their first date. Strolling through the park, they shared stories, laughter, and shy glances, discovering a connection that felt magical.
+                    </div>
+                    <div class="buttons">
+                        <button>EDIT</button>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="img3.jpeg">
+                <div class="content">
+                    <!-- <div class="author">RANDEEP</div> -->
+                    <div class="title">EmLiam</div>
+                    <div class="topic">HE TOOK ME TO SHOPPING</div>
+                    <div class="des" style="font-size: 25px;">
+                        Emma and Liam wandered through the bustling market, hand in hand. They playfully debated over quirky items, shared sweet treats, and stole kisses between stalls, savoring every moment of their joyful adventure.
+                    </div>
+                    <div class="buttons">
+                        <button>EDIT</button>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="img4.jpeg">
+                <div class="content">
+                    <!-- <div class="author">RANDEEP</div> -->
+                    <div class="title">EmLiam</div>
+                    <div class="topic">FIRST PRESENT</div>
+                    <div class="des" style="font-size: 25px;">
+                        On their anniversary, Liam surprised Emma with a beautifully wrapped box. Inside was a vintage camera, symbolizing their shared passion for photography. Touched, Emma felt their love deepen with every click.
+                    </div>
+                    <div class="buttons">
+                        <button>EDIT</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- list thumnail -->
+        <div class="thumbnail">
+            <div class="item">
+                <img src="img1.jpeg">
+                
+            </div>
+            <div class="item">
+                <img src="img2.jpeg">
+                
+            </div>
+            <div class="item">
+                <img src="img3.jpeg">
+                
+            </div>
+            <div class="item">
+                <img src="img4.jpeg">
+                
+            </div>
+        </div>
+        <!-- next prev -->
+
+        <div class="arrows">
+            <button id="prev"><</button>
+            <button id="next">></button>
+            <button id="addition">+</button>
+            <input type="file" id="fileInput" accept="image/*" style="display: none;">
+        </div>
+        
+        <!-- time running -->
+        <div class="time"></div>
+
+        <div class="add"></div>
+            <h1>+</h1>
+        </div>
+    </div>
+    <div id="descriptionModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Enter Details</h2>
+            <label for="headingInput">Heading:</label>
+            <input type="text" id="headingInput" placeholder="Enter a heading..." required>
+            <label for="descriptionInput">Description:</label>
+            <textarea id="descriptionInput" rows="4" cols="50" placeholder="Enter a description..." required></textarea>
+            <button id="submitDescription">Submit</button>
+        </div>
+    </div>
+    
+    
+
+
+
+            <div class="chatboxapp">
+                <h1>Relationship Coach</h1>
+                <div id="chatContainer">
+                    <div id="chatHistory"></div>
+                    <!-- <label for="queryInput">Enter your query:</label><br> -->
+                    <div class="promptBar">
+                        <input type="text" id="queryInput" placeholder="Type your query here"><br><br>
+                    <button id="submitButton">↑</button>
+                    </div>
+                    
+                </div>
+            </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
